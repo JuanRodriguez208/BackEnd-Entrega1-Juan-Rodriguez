@@ -27,7 +27,6 @@ router.get('/', (req, res) => {
   });
 });
 
-// Ruta GET para obtener un producto por su id
 router.get('/:pid', (req, res) => {
   const { pid } = req.params;
 
