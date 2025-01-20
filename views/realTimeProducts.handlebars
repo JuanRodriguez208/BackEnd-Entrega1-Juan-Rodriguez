@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on('productListUpdated', function(products) {
+      const list = document.getElementById('product-list');
+      list.innerHTML = '';
+      products.forEach(product => {
+        const item = document.createElement('li');
+        item.textContent = `${product.title} - ${product.price}$`;
+        list.appendChild(item);
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>{{title}}</h1>
+  <ul id="product-list">
+    {{#each products}}
+      <li>{{this.title}} - {{this.price}}$</li>
+    {{/each}}
+  </ul>
+  <form id="product-form">
+    <input type="text" name="title" placeholder="Title" required />
+    <input type="number" name="price" placeholder="Price" required />
+    <button type="submit">Añadir Producto</button>
+  </form>
+  <script>
+    document.getElementById('product-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const newProduct = {
+        title: formData.get('title'),
+        price: formData.get('price')
+      };
+      socket.emit('newProduct', newProduct);
+    });
+  </script>
+</body>
+</html>

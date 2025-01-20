@@ -1,15 +1,20 @@
 {
-  "name": "back-end",
+  "name": "mi-proyecto-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Proyecto backend con Express, Handlebars y WebSockets",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^4.21.2"
-  }
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.5",
+    "nodemon": "^2.0.15",
+    "socket.io": "^4.5.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "Tu Nombre",
+  "license": "MIT"
 }

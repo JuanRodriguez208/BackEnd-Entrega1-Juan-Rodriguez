@@ -5,7 +5,6 @@ const router = express.Router();
 
 const productsFilePath = path.join(__dirname, '../data/products.json');
 
-// Ruta GET para obtener todos los productos
 router.get('/', (req, res) => {
   fs.readFile(productsFilePath, 'utf-8', (err, data) => {
     if (err) {
@@ -19,7 +18,6 @@ router.get('/', (req, res) => {
       return res.status(500).json({ error: 'Error al parsear los productos' });
     }
 
-    // Limitar productos si se pasa el parámetro "limit"
     const limit = parseInt(req.query.limit, 10);
     if (limit) {
       products = products.slice(0, limit);
@@ -54,7 +52,6 @@ router.get('/:pid', (req, res) => {
   });
 });
 
-// Ruta POST para agregar un nuevo producto
 router.post('/', (req, res) => {
   const newProduct = req.body;
 
@@ -62,7 +59,6 @@ router.post('/', (req, res) => {
     return res.status(400).json({ error: 'Todos los campos son obligatorios excepto thumbnails' });
   }
 
-  // Asignar valores por defecto si no se envían en el body
   newProduct.status = newProduct.status || true;
   newProduct.thumbnails = newProduct.thumbnails || [];
 
@@ -78,10 +74,8 @@ router.post('/', (req, res) => {
       return res.status(500).json({ error: 'Error al parsear los productos' });
     }
 
-    // Generar un nuevo id
     const newId = products.length ? products[products.length - 1].id + 1 : 1;
 
-    // Agregar el nuevo producto con un id autogenerado
     const productToAdd = { id: newId, ...newProduct };
 
     products.push(productToAdd);
@@ -96,7 +90,6 @@ router.post('/', (req, res) => {
   });
 });
 
-// Ruta PUT para actualizar un producto
 router.put('/:pid', (req, res) => {
   const { pid } = req.params;
   const updatedProduct = req.body;
@@ -124,7 +117,6 @@ router.put('/:pid', (req, res) => {
 
     updatedProduct.id = products[productIndex].id;
 
-    // Actualizar el producto
     products[productIndex] = { ...products[productIndex], ...updatedProduct };
 
     fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), (err) => {
@@ -137,7 +129,6 @@ router.put('/:pid', (req, res) => {
   });
 });
 
-// Ruta DELETE para eliminar un producto
 router.delete('/:pid', (req, res) => {
   const { pid } = req.params;
 
