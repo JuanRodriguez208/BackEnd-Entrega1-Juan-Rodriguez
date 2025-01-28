@@ -3,20 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>{{title}}</title>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
-
-    socket.on('productListUpdated', function(products) {
-      const list = document.getElementById('product-list');
-      list.innerHTML = '';
-      products.forEach(product => {
-        const item = document.createElement('li');
-        item.textContent = `${product.title} - ${product.price}$`;
-        list.appendChild(item);
-      });
-    });
-  </script>
 </head>
 <body>
   <h1>{{title}}</h1>
@@ -38,7 +24,7 @@
         title: formData.get('title'),
         price: formData.get('price')
       };
-      socket.emit('newProduct', newProduct);
+      socket.emit('newProduct', newProduct); 
     });
   </script>
 </body>

@@ -26,6 +26,15 @@
       "image3.jpg",
       "image4.jpg"
     ]
+  },
+  {
+    "id": 3,
+    "title": "colador",
+    "price": "100"
+  },
+  {
+    "id": 4,
+    "title": "olla",
+    "price": "90"
   }
- 
 ]

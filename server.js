@@ -51,7 +51,25 @@ io.on('connection', (socket) => {
     if (err) return;
 
     const products = JSON.parse(data);
-    socket.emit('updateProducts', products);
+    socket.emit('productListUpdated', products);
+  });
+
+  socket.on('newProduct', (newProduct) => {
+    fs.readFile(path.join(__dirname, 'data', 'products.json'), 'utf-8', (err, data) => {
+      if (err) return;
+
+      const products = JSON.parse(data);
+      const newId = products.length ? products[products.length - 1].id + 1 : 1;
+      const productToAdd = { id: newId, ...newProduct };
+
+      products.push(productToAdd);
+
+      fs.writeFile(path.join(__dirname, 'data', 'products.json'), JSON.stringify(products, null, 2), (err) => {
+        if (err) return;
+
+        io.emit('productListUpdated', products);
+      });
+    });
   });
 
   socket.on('disconnect', () => {
