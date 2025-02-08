@@ -9,6 +9,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^5.3.5",
+    "mongoose": "^8.10.0",
     "nodemon": "^2.0.15",
     "socket.io": "^4.5.1"
   },

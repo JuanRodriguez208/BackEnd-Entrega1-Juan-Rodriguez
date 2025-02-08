@@ -24,7 +24,6 @@ const writeCarts = (carts) => {
 router.post('/', (req, res) => {
   const carts = readCarts();
 
-  // Verificar si ya hay carritos en el archivo
   const newId = carts.length ? Math.max(...carts.map(c => c.id)) + 1 : 1;
 
   const newCart = {
